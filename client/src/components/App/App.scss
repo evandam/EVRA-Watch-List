@@ -1,0 +1,9 @@
+$primary: #4f8bef;
+$background: #64676b;
+
+@import '../../../node_modules/bulma/sass/utilities/initial-variables.sass';
+@import '../../../node_modules/bulma/bulma.sass';
+
+html {
+  background-color: $background;
+}
