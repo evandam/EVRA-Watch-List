@@ -8,4 +8,5 @@ A way to share and track movies and shows we want to watch
 3. Open the integrated terminal <kbd>ctrl</kbd>+<kbd>`</kbd>
 4. `git clone https://github.com/evandam/EVRA-Watch-List`
 5. `cd EVRA-Watch-List/client`
-6. `npm start`
+6. `npm install`
+7. `npm start`
