@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class Hero extends Component {
+class Hero extends React.Component {
     render() {
         return (
             <section className={"hero " + (this.props.className || "")}>

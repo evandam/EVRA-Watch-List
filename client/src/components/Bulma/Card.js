@@ -1,19 +1,24 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class Card extends Component {
+class Card extends React.Component {
     render() {
         return (
             <div className={"card " + (this.props.className || "")}>
+                <div className="card-header">
+                    <div className="card-header-title">{this.props.title}</div>
+                </div>
                 <div className="card-image">
                     <figure className="image">
-                        <img src={this.props.img} alt="Placeholder"/>
+                        <img src={this.props.img} alt=""/>
                     </figure>
                 </div>
                 <div className="card-content">
                     <div className="content">
-                        <p className="title">{this.props.title}</p>
                         {this.props.children}
                     </div>
+                </div>
+                <div className="card-footer">
+                    {this.props.footer_items}
                 </div>
             </div>
         );

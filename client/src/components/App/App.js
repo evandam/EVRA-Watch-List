@@ -1,30 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './App.css';
 import Hero from '../Bulma/Hero';
-import Movie from '../Movie/Movie';
+import MovieList from '../MovieList/MovieList';
 
-class App extends Component {
-  render() {
-    return (
-      <div>
-        <Hero
-          title="EVRA Watch List"
-          subtitle="What do you want to watch?"
-          className="is-primary" />
-
-        <div className="container">
-          <div className="columns">
-            <Movie
-              className="column is-one-quarter"
-              title="Harry Potter"
-              img="http://harrypotterfanzone.com/wp-content/2015/07/philosophers-stone-theatrical-poster.jpg">
-              Yay!!
-            </Movie>
-          </div>
-        </div>
-      </div>
-    );
-  }
+class App extends React.Component {
+    render() {
+        return (
+            <div>
+                <Hero
+                    title="EVRA Watch List"
+                    subtitle="What do you want to watch?"
+                    className="is-primary" />
+                <MovieList />
+            </div>
+        );
+    }
 }
 
 export default App;
