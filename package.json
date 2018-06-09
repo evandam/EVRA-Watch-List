@@ -1,0 +1,24 @@
+{
+  "name": "evra-watch-list",
+  "version": "1.0.0",
+  "description": "A way to share and track movies and shows we want to watch",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "cd client && npm install && cd ../server && npm install",
+    "start": "concurrently \"cd server && npm start\" \"cd client && npm start\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/evandam/EVRA-Watch-List.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/evandam/EVRA-Watch-List/issues"
+  },
+  "homepage": "https://github.com/evandam/EVRA-Watch-List#readme",
+  "devDependencies": {
+    "concurrently": "^3.5.1"
+  }
+}
