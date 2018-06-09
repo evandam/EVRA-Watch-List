@@ -8,7 +8,7 @@ class Card extends React.Component {
                     <div className="card-header-title">{this.props.title}</div>
                 </div>
                 <div className="card-image">
-                    <figure className="image">
+                    <figure className={"image " + (this.props.imageClass || "")}>
                         <img src={this.props.img} alt=""/>
                     </figure>
                 </div>
@@ -18,7 +18,7 @@ class Card extends React.Component {
                     </div>
                 </div>
                 <div className="card-footer">
-                    {this.props.footer_items}
+                    {this.props.footerItems}
                 </div>
             </div>
         );

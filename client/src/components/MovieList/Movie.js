@@ -9,7 +9,10 @@ render() {
     ];
 
     return (
-        <Card {...this.props} className="movie" footer_items={controls}>
+        <Card {...this.props}
+            className="movie"
+            footerItems={controls}
+            imageClass="is-3by4">
             {this.props.children}
         </Card>
     );

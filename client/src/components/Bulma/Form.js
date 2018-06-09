@@ -20,7 +20,9 @@ class InputField extends React.Component {
                 <input className="input"
                     type={this.props.type || "text"}
                     placeholder={this.props.label}
-                    name={this.props.name} />
+                    name={this.props.name}
+                    onChange={this.props.onChange}
+                    value={this.props.value} />
             </ControlField>
         );
     }
@@ -31,18 +33,23 @@ class TextArea extends React.Component {
         return (
             <ControlField {...this.props}>
                 <textarea className="textarea"
-                    placeholder={this.props.label} />
+                    placeholder={this.props.label}
+                    name={this.props.name}
+                    onChange={this.props.onChange}
+                    value={this.props.value} />
             </ControlField>
         );
     }
 }
 
-class DropDown extends React.Component {
+class Select extends React.Component {
     render() {
         return (
             <ControlField {...this.props}>
                 <div className="select">
-                    <select>
+                    <select name={this.props.name} 
+                        onChange={this.props.onChange}
+                        value={this.props.value}>
                         {this.props.options.map(val =>
                             <option key={val}>
                                 {val}
@@ -57,6 +64,6 @@ class DropDown extends React.Component {
 
 export {
     InputField,
-    DropDown,
+    Select,
     TextArea,
 }
