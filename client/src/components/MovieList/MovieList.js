@@ -2,6 +2,7 @@ import React from 'react';
 import Movie from './Movie';
 import MovieForm from './MovieForm';
 import Modal from '../Bulma/Modal';
+import {post} from '../../utils';
 
 class MovieList extends React.Component {
     constructor(props) {
@@ -10,7 +11,6 @@ class MovieList extends React.Component {
             movies: [],
             form: false,
         };
-
         this.addMovie = this.addMovie.bind(this);
     }
 
@@ -26,16 +26,12 @@ class MovieList extends React.Component {
 
     addMovie(movie) {
         console.log(movie);
-        this.setState({form: false})
-        fetch('/api/movies/add', {
-            method: 'POST',
-            body: JSON.stringify(movie),
-            headers: {"Content-Type": "application/json"}
-        })
+        post('/api/movies/add', movie)
         .then(response => {
             return response.json();
         })
         .then(data => {
+            this.setState({form: false})
             console.log(data);
         });
     }
