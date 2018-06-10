@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/evra');
+const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost/evra'
+mongoose.connect(mongoURI);
 
 const Movie = mongoose.model('Movie', {
     title: String,
