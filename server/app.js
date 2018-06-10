@@ -3,6 +3,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var path = require('path');
 
 var moviesRouter = require('./routes/movies');
 var usersRouter = require('./routes/users');
@@ -10,6 +11,8 @@ var usersRouter = require('./routes/users');
 var app = express();
 
 app.use(logger('dev'));
+app.use(express.static(path.join('..', 'client', 'build')));
+app.use(express.static(path.join('..', 'client', 'public')));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(cookieParser());
@@ -30,7 +33,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.json({message: 'Error!!'});
 });
 
 module.exports = app;
