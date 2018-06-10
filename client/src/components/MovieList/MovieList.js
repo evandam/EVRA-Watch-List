@@ -8,7 +8,7 @@ class MovieList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            movies: [],
+            movies: null,
             form: false,
         };
         this.addMovie = this.addMovie.bind(this);
@@ -60,13 +60,15 @@ class MovieList extends React.Component {
     }
 
     renderMovies() {
-        return this.state.movies.map(movie => {
-            return (
+        if (this.state.movies === null) {
+            return <button className="button is-static is-loading">Loading Movies...</button>;
+        } else {
+            return this.state.movies.map(movie =>
                 <div key={movie._id} className="column">
                     <Movie id={movie._id} title={movie.title} delete={this.deleteMovie} />
                 </div>
             );
-        });
+        }
     }
 
     render() {
