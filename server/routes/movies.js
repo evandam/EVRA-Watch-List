@@ -1,20 +1,39 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const db = require('../db');
+
+const router = express.Router();
+const Movie = db.Movie;
 
 router.get('/', (req, res, next) => {
-    let movies = [
-        {'id': 1, 'title': 'Deadpool'},
-        {'id': 2, 'title': 'Solo'},
-        {'id': 3, 'title': 'The Avengers'},
-        {'id': 4, 'title': 'Fantastic Beasts & Where to Find Them'},
-    ];
-    
-    res.json(movies);
+    Movie.find((err, movies) => {
+        if (err) {
+            res.send(err);
+        }  else {
+            res.json(movies);
+        }
+    });
 });
 
-router.post('/add', (req, res, next) => {
+router.post('/', (req, res, next) => {
     console.log(req.body);
-    res.json({message: 'cool!'});
+    let movie = Movie(req.body);
+    movie.save((err, movie) => {
+        if (err) {
+            res.send(err);
+        } else {
+            res.json(movie);
+        }
+    });
+});
+
+router.delete('/:movieId', (req, res, next) => {
+    Movie.deleteOne({_id: req.params.movieId}, err => {
+        if (err) {
+            res.send(err);
+        } else {
+            res.json({success: true});
+        }
+    });
 });
 
 module.exports = router;

@@ -2,7 +2,7 @@ import React from 'react';
 import Movie from './Movie';
 import MovieForm from './MovieForm';
 import Modal from '../Bulma/Modal';
-import {post} from '../../utils';
+import {doGet, doPost, doDelete} from '../../utils';
 
 class MovieList extends React.Component {
     constructor(props) {
@@ -12,27 +12,40 @@ class MovieList extends React.Component {
             form: false,
         };
         this.addMovie = this.addMovie.bind(this);
+        this.deleteMovie = this.deleteMovie.bind(this);
     }
 
     componentDidMount() {
-        fetch('/api/movies')
-        .then(response => {
-            return response.json();
-        })
+        doGet('/api/movies')
         .then(data => {
             this.setState({movies: data});
+        })
+        .catch(error => {
+            console.error(error);
         });
     }
 
     addMovie(movie) {
-        console.log(movie);
-        post('/api/movies/add', movie)
-        .then(response => {
-            return response.json();
-        })
+        doPost('/api/movies', movie)
         .then(data => {
-            this.setState({form: false})
-            console.log(data);
+            // add new movie after save, hide form.
+            this.setState(prevState => ({
+                form: false,
+                movies: [...prevState.movies, data]
+            }));
+        })
+        .catch(error => {
+            console.error(error);
+        });
+    }
+    
+    deleteMovie(id) {
+        doDelete('/api/movies', id)
+        .then(data => {
+            this.setState(prevState => ({
+                movies: prevState.movies.filter(movie => movie._id !== id)
+            }));
+            console.log(this.state.movies);
         });
     }
 
@@ -43,16 +56,14 @@ class MovieList extends React.Component {
                     <MovieForm onSubmit={this.addMovie} />
                 </Modal>
             );
-        } else {
-            return null;
         }
     }
 
     renderMovies() {
         return this.state.movies.map(movie => {
             return (
-                <div key={movie.id} className="column">
-                    <Movie title={movie.title} />
+                <div key={movie._id} className="column">
+                    <Movie id={movie._id} title={movie.title} delete={this.deleteMovie} />
                 </div>
             );
         });

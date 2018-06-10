@@ -1,24 +1,19 @@
-var createError = require('http-errors');
-var express = require('express');
-var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var path = require('path');
+const createError = require('http-errors');
+const express = require('express');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const path = require('path');
 
-var moviesRouter = require('./routes/movies');
-var usersRouter = require('./routes/users');
-
-var app = express();
+const app = express();
 
 app.use(logger('dev'));
 app.use(express.static(path.join('..', 'client', 'build')));
 app.use(express.static(path.join('..', 'client', 'public')));
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(bodyParser.json());
+app.use(express.urlencoded({extended: false}));
+app.use(express.json());
 app.use(cookieParser());
 
-app.use('/api/movies', moviesRouter);
-app.use('/api/users', usersRouter);
+app.use('/api/movies', require('./routes/movies'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
