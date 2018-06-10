@@ -21,7 +21,7 @@ class Movie extends React.Component {
             <Card {...this.props}
                 className="movie"
                 footerItems={controls}
-                imageClass="is-3by4">
+                imageClass="is-128x128">
                 {this.props.children}
             </Card>
         );

@@ -3,16 +3,18 @@ import Movie from './Movie';
 import MovieForm from './MovieForm';
 import Modal from '../Bulma/Modal';
 import {doGet, doPost, doDelete} from '../../utils';
+import './MovieList.css';
 
 class MovieList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             movies: null,
-            form: false,
+            showForm: false,
         };
         this.addMovie = this.addMovie.bind(this);
         this.deleteMovie = this.deleteMovie.bind(this);
+        this.toggleForm = this.toggleForm.bind(this);
     }
 
     componentDidMount() {
@@ -25,12 +27,19 @@ class MovieList extends React.Component {
         });
     }
 
+    
+    toggleForm() {
+        this.setState(prevState => ({
+            showForm: !prevState.showForm
+        }));
+    }
+
     addMovie(movie) {
         doPost('/api/movies', movie)
         .then(data => {
             // add new movie after save, hide form.
+            this.toggleForm();
             this.setState(prevState => ({
-                form: false,
                 movies: [...prevState.movies, data]
             }));
         })
@@ -49,22 +58,12 @@ class MovieList extends React.Component {
         });
     }
 
-    renderForm() {
-        if (this.state.form) {
-            return (
-                <Modal onClose={() => this.setState({form: false})}>
-                    <MovieForm onSubmit={this.addMovie} />
-                </Modal>
-            );
-        }
-    }
-
     renderMovies() {
         if (this.state.movies === null) {
             return <button className="button is-static is-loading">Loading Movies...</button>;
         } else {
             return this.state.movies.map(movie =>
-                <div key={movie._id} className="column">
+                <div key={movie._id} className="column is-one-quarter-desktop is-half-tablet">
                     <Movie id={movie._id} title={movie.title} delete={this.deleteMovie} />
                 </div>
             );
@@ -75,14 +74,18 @@ class MovieList extends React.Component {
         return (
             <section className="section movie-list">
                 <div className="container">
-                    <div className="columns">
-                        {this.renderMovies()}
-                    </div>
-                    <button className="button is-primary" onClick={() => this.setState({form: true})}>
+                    <button className="button is-primary" onClick={this.toggleForm}>
                         Add a Movie
                     </button>
-                    {this.renderForm()}
                 </div>
+                <div className="container">
+                    <div className="columns is-multiline">
+                        {this.renderMovies()}
+                    </div>
+                </div>
+                <Modal isActive={this.state.showForm} close={this.toggleForm}>
+                    <MovieForm onSubmit={this.addMovie} />
+                </Modal>
             </section>
         );
     }
