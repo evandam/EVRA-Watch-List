@@ -40,7 +40,7 @@ class MovieList extends React.Component {
     }
     
     deleteMovie(id) {
-        doDelete('/api/movies', id)
+        doDelete(`/api/movies/${id}`)
         .then(data => {
             this.setState(prevState => ({
                 movies: prevState.movies.filter(movie => movie._id !== id)

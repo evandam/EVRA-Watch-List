@@ -6,12 +6,12 @@ function handleError(response) {
     }
 }
 
-function doGet(url) {
+export function doGet(url) {
     return fetch(url)
     .then(handleError);
 }
 
-function doPost(url, data) {
+export function doPost(url, data) {
     return fetch(url, {
         body: JSON.stringify(data),
         method: 'POST',
@@ -20,15 +20,9 @@ function doPost(url, data) {
     .then(handleError);
 }
 
-function doDelete(url, id) {
-    return fetch(url + '/' + id, {
+export function doDelete(url) {
+    return fetch(url, {
         method: 'DELETE'
     })
     .then(handleError);
 }
-
-export {
-    doGet,
-    doPost,
-    doDelete
-};

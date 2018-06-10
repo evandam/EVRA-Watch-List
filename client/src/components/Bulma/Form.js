@@ -1,6 +1,6 @@
 import React from 'react';
 
-class ControlField extends React.Component {
+export class ControlField extends React.Component {
     render() {
         return (
             <div className="field">
@@ -13,7 +13,7 @@ class ControlField extends React.Component {
     }
 }
 
-class InputField extends React.Component {
+export class InputField extends React.Component {
     render() {
         return (
             <ControlField {...this.props}>
@@ -28,7 +28,7 @@ class InputField extends React.Component {
     }
 }
 
-class TextArea extends React.Component {
+export class TextArea extends React.Component {
     render() {
         return (
             <ControlField {...this.props}>
@@ -42,7 +42,7 @@ class TextArea extends React.Component {
     }
 }
 
-class Select extends React.Component {
+export class Select extends React.Component {
     render() {
         return (
             <ControlField {...this.props}>
@@ -60,10 +60,4 @@ class Select extends React.Component {
             </ControlField>
         );
     }
-}
-
-export {
-    InputField,
-    Select,
-    TextArea,
 }
