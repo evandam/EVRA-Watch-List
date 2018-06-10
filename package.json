@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "A way to share and track movies and shows we want to watch",
   "main": "index.js",
+  "engines": {
+    "npm": "5.7.x"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "install-client": "cd client && npm install",
