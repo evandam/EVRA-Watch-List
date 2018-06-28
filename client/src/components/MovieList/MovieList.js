@@ -54,33 +54,28 @@ class MovieList extends React.Component {
             this.setState(prevState => ({
                 movies: prevState.movies.filter(movie => movie._id !== id)
             }));
-            console.log(this.state.movies);
         });
     }
 
-    renderMovies() {
-        if (this.state.movies === null) {
-            return <button className="button is-static is-loading">Loading Movies...</button>;
-        } else {
-            return this.state.movies.map(movie =>
-                <div key={movie._id} className="column is-one-quarter-desktop is-half-tablet">
-                    <Movie id={movie._id} title={movie.title} delete={this.deleteMovie} />
-                </div>
-            );
-        }
-    }
-
     render() {
+        const movies = this.state.movies ? this.state.movies.map(movie =>
+            <div key={movie._id} className="column is-one-quarter-desktop is-half-tablet">
+                <Movie id={movie._id} title={movie.title} delete={this.deleteMovie} />
+            </div>
+        ) : null;
+
         return (
             <section className="section movie-list">
                 <div className="container">
-                    <button className="button is-primary" onClick={this.toggleForm}>
+                    <button 
+                        className={"button is-primary " + (this.state.movies === null ? "is-loading" : "")}
+                        onClick={this.toggleForm}>
                         Add a Movie
                     </button>
                 </div>
                 <div className="container">
                     <div className="columns is-multiline">
-                        {this.renderMovies()}
+                        {movies}
                     </div>
                 </div>
                 <Modal isActive={this.state.showForm} close={this.toggleForm}>

@@ -1,9 +1,8 @@
 $primary: #4f8bef;
-$background: #e0e0e0;
 
 @import '../../../node_modules/bulma/sass/utilities/initial-variables.sass';
 @import '../../../node_modules/bulma/bulma.sass';
 
 html {
-  background-color: $background;
+    background-color: $grey-lighter;
 }
