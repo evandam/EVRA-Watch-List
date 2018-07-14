@@ -3,18 +3,17 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const path = require('path');
-const Rollbar = require('rollbar');
+const Raven = require('raven');
 
 const app = express();
 
-if (process.env.ROLLBAR_ACCESS_TOKEN) {
-    const rollbar = new Rollbar({
-        accessToken: process.env.ROLLBAR_ACCESS_TOKEN,
-        captureUncaught: true,
-        captureUnhandledRejections: true
-    });
-    app.use(rollbar.errorHandler());
-    rollbar.log('Initialized Rollbar!');
+if (process.env.SENTRY_DSN) {
+    // Must configure Raven before doing anything else with it
+    Raven.config(process.env.SENTRY_DSN).install();
+    // The request handler must be the first middleware on the app
+    app.use(Raven.requestHandler());
+    // The error handler must be before any other error middleware
+    app.use(Raven.errorHandler());
 }
 
 app.use(logger('dev'));
