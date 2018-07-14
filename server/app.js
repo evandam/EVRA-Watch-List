@@ -8,8 +8,13 @@ const Rollbar = require('rollbar');
 const app = express();
 
 if (process.env.ROLLBAR_ACCESS_TOKEN) {
-    const rollbar = Rollbar(process.env.ROLLBAR_ACCESS_TOKEN);
+    const rollbar = Rollbar({
+        accessToken: process.env.ROLLBAR_ACCESS_TOKEN,
+        captureUncaught: true,
+        captureUnhandledRejections: true
+    });
     app.use(rollbar.errorHandler());
+    rollbar.log('Initialized Rollbar!');
 }
 
 app.use(logger('dev'));
