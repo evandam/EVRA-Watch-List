@@ -3,8 +3,14 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const path = require('path');
+const Rollbar = require('rollbar');
 
 const app = express();
+
+if (process.env.ROLLBAR_ACCESS_TOKEN) {
+    const rollbar = Rollbar(process.env.ROLLBAR_ACCESS_TOKEN);
+    app.use(rollbar.errorHandler());
+}
 
 app.use(logger('dev'));
 app.use(express.static(path.join('..', 'client', 'build')));

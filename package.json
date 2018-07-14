@@ -30,5 +30,7 @@
   "devDependencies": {
     "concurrently": "^3.5.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "rollbar": "^2.4.2"
+  }
 }
