@@ -17,8 +17,7 @@ if (process.env.SENTRY_DSN) {
 }
 
 app.use(logger('dev'));
-app.use(express.static(path.join('..', 'client', 'build')));
-app.use(express.static(path.join('..', 'client', 'public')));
+app.use(express.static(path.join('..', 'client', 'dist')));
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 app.use(cookieParser());
