@@ -30,7 +30,6 @@
 </template>
 
 <script>
-
 export default {
     data() {
         const categories = ['Movie', 'Travel', 'Misc.'];
@@ -45,10 +44,7 @@ export default {
     },
     methods: {
         handleSubmit() {
-            fetch('http://localhost:3000/api/todo', {method: 'POST', body: this.item})
-            .then(res => {
-                console.log('Added item successfully!', res.data);
-            });
+            fetch('/api/todo', {method: 'POST', body: this.item})
         }
     }
 };

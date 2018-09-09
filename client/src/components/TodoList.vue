@@ -33,7 +33,7 @@ export default {
     };
   },
   mounted() {
-    fetch('http://localhost:3000/api/todo')
+    fetch('/api/todo')
     .then(result => {
       this.todos = result.data;
     });
