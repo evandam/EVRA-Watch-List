@@ -1,0 +1,35 @@
+---
+version: '3'
+services:
+  client:
+    build:
+      context: ./client
+      dockerfile: dev.dockerfile
+    volumes:
+      - "./client:/usr/local/src"
+      - "/usr/local/src/node_modules"
+    depends_on:
+      - server
+    environment:
+      BACKEND_URI: http://server:8000
+    ports:
+      - "8080:8080"
+
+  server:
+    build:
+      context: ./server
+      dockerfile: dev.dockerfile
+    volumes:
+      - "./server:/usr/local/src"
+      - "/usr/local/src/node_modules"
+    depends_on:
+      - db
+    environment:
+      MONGODB_URI: mongodb://db/app
+    ports:
+      - "3000:3000"
+
+  db:
+    image: mongo:latest
+    volumes:
+      - "./data:/data/db"
